@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext, ChangeEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { Book } from '../assets/Book';
 import { FontContext } from '../contexts/FontContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 import { Path } from '../assets/Path';
 import { Moon } from '../assets/Moon';
 import type { Opts, Font } from '../interfaces';
@@ -9,8 +11,6 @@ import type { Opts, Font } from '../interfaces';
 const Header: React.FC = (): JSX.Element => {
   const fontContext = useContext(FontContext);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-
-  const toggleFont = () => {};
 
   const toggleModal = () => {
     if (isModalOpen) setModalOpen(false);
@@ -23,7 +23,6 @@ const Header: React.FC = (): JSX.Element => {
         <Book />
         <Select
           font={fontContext!.font}
-          toggleFont={toggleFont}
           openModal={toggleModal}
           isOpen={isModalOpen}
           changeFont={fontContext!.setFont}
@@ -35,46 +34,62 @@ const Header: React.FC = (): JSX.Element => {
 
 const Select: React.FC<{
   font: string;
-  toggleFont: () => void;
   openModal: () => void;
   isOpen: boolean;
   changeFont: React.Dispatch<Font> | undefined;
-}> = ({ font, toggleFont, openModal, isOpen, changeFont }) => {
+}> = ({ font, openModal, isOpen, changeFont }) => {
+  const themeContext = useContext(ThemeContext);
+  const theme = themeContext!.theme;
+
   const buildclsx = () => {
     let style = '';
     switch (font) {
       case 'Sans Serif':
-        style = `text-dark-grayish w-[80px] font-sans`;
+        style = `text-dark-grayish w-[80px] ${
+          theme === 'dark' && 'text-white'
+        } font-sans`;
         break;
       case 'Serif':
-        style = `text-dark-grayish w-[80px] font-serif`;
+        style = `text-dark-grayish w-[42px] ${
+          theme === 'dark' && 'text-white'
+        } font-serif`;
         break;
       case 'Mono':
-        style = `text-dark-grayish w-[80px] font-mono`;
+        style = `text-dark-grayish w-[36px] ${
+          theme === 'dark' && 'text-white'
+        } font-mono`;
         break;
     }
     return style;
   };
 
   return (
-    <div
-      className="relative flex w-[250px] items-center justify-evenly"
-      onClick={toggleFont}
-    >
-      <h1 className={clsx(buildclsx())}>{font}</h1>
-      {isOpen && (
-        <Modal
-          fonts={[
-            { font: 'Sans Serif', style: 'font-sans' },
-            { font: 'Serif', style: 'font-serif' },
-            { font: 'Mono', style: 'font-mono' }
-          ]}
-          changeFont={changeFont}
-          toggleModal={openModal}
-        />
-      )}
-      <Path openModal={openModal} />
-      <div className="bg-pipe h-[32px] w-[1px]"></div>
+    <div className="relative flex w-[250px] items-center">
+      <div className="flex items-center gap-4">
+        <h1 className={clsx(buildclsx())}>{font}</h1>
+        <Path openModal={openModal} />
+      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: 'easeInOut', duration: 0.5 }}
+          >
+            <Modal
+              fonts={[
+                { font: 'Sans Serif', style: 'font-sans' },
+                { font: 'Serif', style: 'font-serif' },
+                { font: 'Mono', style: 'font-mono' }
+              ]}
+              changeFont={changeFont}
+              toggleModal={openModal}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <span className="bg-pipe mx-[26px] h-[32px] w-[1px]"></span>
       <Switcher />
     </div>
   );
@@ -91,14 +106,26 @@ const Modal: React.FC<{
     toggleModal();
   };
 
+  const themeContext = useContext(ThemeContext);
+
+  let mode_setting = {
+    theme: themeContext!.theme,
+    setTheme: themeContext?.setTheme
+  };
+
   return (
-    <div className="shadow-custom absolute left-[10px] top-[34px] flex max-h-[152px] max-w-[183px] flex-col justify-around gap-2 rounded-2xl bg-white p-6">
+    <div
+      className={`${
+        mode_setting.theme === 'dark' ? 'shadow-custom-2' : 'shadow-custom'
+      } absolute left-[-4px] top-[45px] flex max-h-[152px] max-w-[183px] flex-col justify-around gap-2 rounded-2xl ${
+        mode_setting.theme === 'dark' && 'bg-lightblk'
+      } p-6`}
+    >
       {fonts.map((f: Opts, idx: number) => (
         <li
-          className={
-            'hover:text-purple text-dark-grayish cursor-pointer list-none text-sm ' +
-            f.style
-          }
+          className={`hover:text-purple ${
+            mode_setting.theme === 'dark' ? 'text-white' : 'text-dark-grayish'
+          } cursor-pointer list-none text-sm ${f.style}`}
           onClick={handleFont}
           key={idx}
         >
@@ -110,12 +137,35 @@ const Modal: React.FC<{
 };
 
 const Switcher: React.FC<{}> = ({}) => {
+  const themeContext = useContext(ThemeContext);
+
+  let mode_setting = {
+    theme: themeContext!.theme,
+    setTheme: themeContext?.setTheme
+  };
+
+  const handleSwitch = () => {
+    let { theme, setTheme } = mode_setting;
+    if (theme === 'light') {
+      setTheme?.('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      setTheme?.('light');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
   return (
-    <div className="flex h-[20px] w-[80px] items-center justify-between">
-      <div className="bg-grayish hover:bg-purple h-full w-[40px] items-center rounded-full duration-150 ease-in">
-        <div className="m-0 cursor-pointer rounded-full border-white bg-white"></div>
-      </div>
-      <Moon />
+    <div className="flex w-[80px] items-center justify-between">
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={mode_setting.theme === 'dark' && true}
+          onChange={handleSwitch}
+        />
+        <span className="slider round"></span>
+      </label>
+      <Moon theme={mode_setting.theme} />
     </div>
   );
 };
