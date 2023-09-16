@@ -8,7 +8,7 @@ const Path: React.FC<{ openModal: () => void }> = ({ openModal }) => {
         viewBox="0 0 13 9"
         fill="none"
       >
-        <path d="M1 1L7 7L13 1" stroke="#A445ED" stroke-width="1.5" />
+        <path d="M1 1L7 7L13 1" stroke="#A445ED" strokeWidth="1.5" />
       </svg>
     </div>
   );
