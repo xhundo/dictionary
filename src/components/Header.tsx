@@ -19,7 +19,7 @@ const Header: React.FC = (): JSX.Element => {
 
   return (
     <header className="flex justify-center">
-      <nav className="mt-58 flex w-3/4 justify-between">
+      <nav className="mt-58 flex w-1/2 justify-between">
         <Book />
         <Select
           font={fontContext!.font}
@@ -40,20 +40,28 @@ const Select: React.FC<{
   isOpen: boolean;
   changeFont: React.Dispatch<Font> | undefined;
 }> = ({ font, toggleFont, openModal, isOpen, changeFont }) => {
+  const buildclsx = () => {
+    let style = '';
+    switch (font) {
+      case 'Sans Serif':
+        style = `text-dark-grayish w-[80px] font-sans`;
+        break;
+      case 'Serif':
+        style = `text-dark-grayish w-[80px] font-serif`;
+        break;
+      case 'Mono':
+        style = `text-dark-grayish w-[80px] font-mono`;
+        break;
+    }
+    return style;
+  };
+
   return (
     <div
       className="relative flex w-[250px] items-center justify-evenly"
       onClick={toggleFont}
     >
-      <h1
-        className={clsx(
-          `${font === 'Sans Serif' && 'text-dark-grayish w-[80px] font-sans'}`,
-          `${font === 'Serif' && 'text-dark-grayish w-[80px]  font-serif'}`,
-          `${font === 'Mono' && 'text-dark-grayish  w-[80px] font-mono'}`
-        )}
-      >
-        {font}
-      </h1>
+      <h1 className={clsx(buildclsx())}>{font}</h1>
       {isOpen && (
         <Modal
           fonts={[
