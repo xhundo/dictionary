@@ -6,7 +6,9 @@ const FontContext = createContext<FontContentType | null>(null);
 const FontProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
-  const [font, setFont] = useState<Font>('Sans Serif');
+  const [font, setFont] = useState<Font>((): Font => {
+    return (localStorage.getItem('font') as Font) ?? 'Sans Serif';
+  });
 
   return (
     <FontContext.Provider value={{ font, setFont }}>
