@@ -87,6 +87,7 @@ const Modal: React.FC<{
 }> = ({ fonts, changeFont, toggleModal }) => {
   const handleFont = (evt: React.MouseEvent<HTMLLIElement>): void => {
     changeFont?.(evt.currentTarget.textContent as Font);
+    localStorage.setItem('font', evt.currentTarget.textContent as string);
     toggleModal();
   };
 
