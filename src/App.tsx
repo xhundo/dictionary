@@ -5,11 +5,12 @@ import { Root } from './Root';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 const App: React.FC<{}> = () => {
+  const [isDropdownOpen, setDropdown] = useState<boolean>(false);
   return (
     <ThemeProvider>
-      <Root>
+      <Root setDrop={setDropdown} isDropOpen={isDropdownOpen}>
         <FontProvider>
-          <Header />
+          <Header isDropopen={isDropdownOpen} setDrop={setDropdown} />
         </FontProvider>
       </Root>
     </ThemeProvider>
