@@ -1,6 +1,6 @@
 const Path: React.FC<{ openModal: () => void }> = ({ openModal }) => {
   return (
-    <div className="cursor-pointer" onClick={openModal}>
+    <div className="cursor-pointer" onClick={() => openModal()}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="13"
