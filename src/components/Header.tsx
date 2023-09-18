@@ -13,7 +13,7 @@ const Header: React.FC<{ isDropopen: boolean; setDrop: any }> = ({
   isDropopen,
   setDrop
 }): JSX.Element => {
-  const fontContext = useContext(FontContext);
+  const { font, setFont } = useContext(FontContext)!;
 
   const openDropdown = () => {
     setDrop(!isDropopen);
@@ -21,13 +21,13 @@ const Header: React.FC<{ isDropopen: boolean; setDrop: any }> = ({
 
   return (
     <header className="flex justify-center">
-      <nav className="mt-58 flex w-[30%] justify-between">
+      <nav className="mt-58 flex w-1/2 justify-between">
         <Book />
         <Select
-          font={fontContext!.font}
+          font={font}
           openDropdown={openDropdown}
           isOpen={isDropopen}
-          changeFont={fontContext!.setFont}
+          changeFont={setFont}
           setDropdown={setDrop}
         />
       </nav>
@@ -42,8 +42,7 @@ const Select: React.FC<{
   changeFont: React.Dispatch<Font> | undefined;
   setDropdown: (state: boolean) => void;
 }> = ({ font, openDropdown, isOpen, changeFont, setDropdown }) => {
-  const themeContext = useContext(ThemeContext);
-  const theme = themeContext!.theme;
+  const { theme } = useContext(ThemeContext)!;
 
   const buildclsx = () => {
     let style = '';
@@ -51,7 +50,7 @@ const Select: React.FC<{
       case 'Sans Serif':
         style = `text-dark-grayish w-[80px] ${
           theme === 'dark' && 'text-white'
-        } font-sans`;
+        } font-sans font-bold`;
         break;
       case 'Serif':
         style = `text-dark-grayish w-[80px] ${
@@ -80,11 +79,12 @@ const Select: React.FC<{
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            className="z-10"
             transition={{ ease: 'easeInOut', duration: 0.5 }}
           >
             <Dropdown
               fonts={[
-                { font: 'Sans Serif', style: 'font-sans' },
+                { font: 'Sans Serif', style: 'font-sans font-bold' },
                 { font: 'Serif', style: 'font-serif' },
                 { font: 'Mono', style: 'font-mono' }
               ]}

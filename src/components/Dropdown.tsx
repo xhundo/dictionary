@@ -15,25 +15,20 @@ const Dropdown: React.FC<{
     toggleDropdown();
   };
 
-  const themeContext = useContext(ThemeContext);
-
-  let mode_setting = {
-    theme: themeContext!.theme,
-    setTheme: themeContext?.setTheme
-  };
+  const { theme } = useContext(ThemeContext)!;
 
   return (
     <div
       className={`${
-        mode_setting.theme === 'dark' ? 'shadow-custom-2' : 'shadow-custom'
-      } absolute left-[-4px] top-[45px] flex max-h-[152px] max-w-[183px] flex-col justify-around gap-2 rounded-2xl ${
-        mode_setting.theme === 'dark' && 'bg-lightblk'
-      } p-6`}
+        theme === 'dark'
+          ? 'shadow-custom-2 bg-liteblk'
+          : 'shadow-custom bg-white'
+      } absolute left-[-4px] top-[45px]  flex max-h-[152px] max-w-[183px] flex-col justify-around gap-2 rounded-2xl p-6`}
     >
       {fonts.map((f: Opts, idx: number) => (
         <li
           className={`hover:text-purple ${
-            mode_setting.theme === 'dark' ? 'text-white' : 'text-dark-grayish'
+            theme === 'dark' ? 'text-white' : 'text-dark-grayish'
           } cursor-pointer list-none text-sm ${f.style}`}
           onClick={handleFont}
           key={idx}
