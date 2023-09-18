@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
-import type { FontContentType, Font } from '../interfaces';
+import type { FontContextType, Font } from '../interfaces';
 
-const FontContext = createContext<FontContentType | null>(null);
+const FontContext = createContext<FontContextType | null>(null);
 
 const FontProvider: React.FC<{ children: React.ReactNode }> = ({
   children
