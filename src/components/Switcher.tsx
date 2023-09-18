@@ -3,15 +3,9 @@ import { ThemeContext } from '../contexts/ThemeContext';
 import { Moon } from '../assets/Moon';
 
 const Switcher: React.FC<{}> = ({}) => {
-  const themeContext = useContext(ThemeContext);
-
-  let mode_setting = {
-    theme: themeContext!.theme,
-    setTheme: themeContext?.setTheme
-  };
+  const { theme, setTheme } = useContext(ThemeContext)!;
 
   const handleSwitch = () => {
-    let { theme, setTheme } = mode_setting;
     if (theme === 'light') {
       setTheme?.('dark');
       localStorage.setItem('theme', 'dark');
@@ -26,12 +20,12 @@ const Switcher: React.FC<{}> = ({}) => {
       <label className="switch">
         <input
           type="checkbox"
-          checked={mode_setting.theme === 'dark' && true}
+          checked={theme === 'dark' && true}
           onChange={handleSwitch}
         />
         <span className="slider round"></span>
       </label>
-      <Moon theme={mode_setting.theme} />
+      <Moon theme={theme} />
     </div>
   );
 };
