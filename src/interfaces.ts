@@ -3,11 +3,20 @@ export interface ThemeContextType {
   setTheme?: React.Dispatch<Theme>;
 }
 
-export interface FontContentType {
+export interface FontContextType {
   font: Font;
   setFont?: React.Dispatch<Font>;
 }
 
+export interface DataContextType {
+  definition: any;
+  setQuery: React.Dispatch<any>;
+}
+
+export interface Error {
+  isError: boolean;
+  error: string;
+}
 export interface Opts {
   font: string;
   style: string;
