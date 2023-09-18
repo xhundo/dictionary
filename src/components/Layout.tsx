@@ -13,7 +13,7 @@ const Layout: React.FC = () => {
 
   const showLayout = () => {
     if (definition) {
-      const _font =
+      const pick =
         font === 'Sans Serif'
           ? font.trim().slice(3).replace('s', '').toLowerCase()
           : font.toLowerCase();
@@ -30,7 +30,7 @@ const Layout: React.FC = () => {
               <p
                 className={`${
                   theme === 'dark' ? 'text-white' : 'text-dark-grayish'
-                } font-${_font} text-[64px] font-bold`}
+                } font-${pick} text-[64px] font-bold`}
               >
                 {definition.word}
               </p>
