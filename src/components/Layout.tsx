@@ -13,6 +13,11 @@ const Layout: React.FC = () => {
 
   const showLayout = () => {
     if (definition) {
+      const _font =
+        font === 'Sans Serif'
+          ? font.trim().slice(3).replace('s', '').toLowerCase()
+          : font.toLowerCase();
+
       const audio = new Howl({
         src: [definition?.phonetics[0]?.audio]
       });
@@ -25,7 +30,7 @@ const Layout: React.FC = () => {
               <p
                 className={`${
                   theme === 'dark' ? 'text-white' : 'text-dark-grayish'
-                } font-${font} text-[64px] font-bold`}
+                } font-${_font} text-[64px] font-bold`}
               >
                 {definition.word}
               </p>
