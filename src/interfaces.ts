@@ -11,6 +11,7 @@ export interface FontContextType {
 export interface DataContextType {
   definition: any;
   setQuery: React.Dispatch<any>;
+  errors: any;
 }
 
 export interface Error {

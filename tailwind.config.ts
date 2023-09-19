@@ -24,7 +24,8 @@ export default {
         lite: '#F4F4F4',
         liteblk2: '#1F1F1F',
         error: '#FF5252',
-        purp: 'rgba(164, 69, 237, 1)'
+        purp: 'rgba(164, 69, 237, 1)',
+        span: '#3A3A3A'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
