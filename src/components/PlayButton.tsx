@@ -1,7 +1,7 @@
 const PlayButton: React.FC<{ action: () => void }> = ({ action }) => {
   return (
     <div
-      className="bg-purp/10 hover:bg-purp/100 relative  right-6 h-75 w-75 cursor-pointer self-center  rounded-full duration-200"
+      className="bg-purp/10 hover:bg-purp/100 group relative  right-6 h-75 w-75 cursor-pointer self-center  rounded-full duration-200"
       onClick={action}
     >
       <svg
@@ -13,7 +13,7 @@ const PlayButton: React.FC<{ action: () => void }> = ({ action }) => {
         fill="none"
       >
         <path
-          className="fill-purp duration-200 hover:fill-white"
+          className="fill-purp  duration-200 group-hover:fill-white"
           fillRule="inherit"
           clipRule="inherit"
           d="M0 0V21L21 10.5L0 0Z"
