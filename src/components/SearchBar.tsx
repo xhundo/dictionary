@@ -39,18 +39,18 @@ const SearchBar: React.FC<{}> = ({}) => {
       <input
         className={`${
           theme === 'dark'
-            ? 'bg-liteblk2 text-white  placeholder:text-white'
+            ? 'bg-liteblk2 text-white  placeholder:font-bold placeholder:text-white'
             : 'bg-lite placeholder:text-dark-grayish '
         } active:outline-purple ${
-          error && 'border-error border'
-        } h-[64px] w-full rounded-2xl px-6 py-5 outline-none active:outline-1 ${style}  placeholder:opacity-25`}
+          error && 'border border-error'
+        } h-[64px] w-full rounded-2xl px-6 py-5 font-bold outline-none active:outline-1 ${style}  placeholder:opacity-25`}
         placeholder="Search for any word..."
         type="text"
         value={search}
         onChange={handleSearch}
       />
       {isError && (
-        <span className="text-error mt-2 font-sans text-[20px] font-normal">
+        <span className="mt-2 font-sans text-[20px] font-normal text-error">
           {error}
         </span>
       )}

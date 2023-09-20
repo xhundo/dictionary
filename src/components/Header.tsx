@@ -53,7 +53,7 @@ const Select: React.FC<{
         } font-sans font-bold`;
         break;
       case 'Serif':
-        style = `text-dark-grayish w-[80px] ${
+        style = `text-dark-grayish font-bold w-[80px] ${
           theme === 'dark' && 'text-white'
         } font-serif`;
         break;
@@ -96,7 +96,7 @@ const Select: React.FC<{
           </motion.div>
         )}
       </AnimatePresence>
-      <span className="bg-pipe mx-[26px] h-[32px] w-[1px]"></span>
+      <span className="mx-[26px] h-[32px] w-[1px] bg-pipe"></span>
       <Switcher />
     </div>
   );

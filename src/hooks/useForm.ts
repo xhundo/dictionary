@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useFetch } from './useFetch';
 import type { Error } from '../interfaces';
 
 export const useForm = () => {

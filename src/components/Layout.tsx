@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { Howl } from 'howler';
+import { v4 as uuidv4 } from 'uuid';
 import { FontContext } from '../contexts/FontContext';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { DataContext } from '../contexts/DataContext';
@@ -22,9 +23,14 @@ const Layout: React.FC = () => {
         word: data.word,
         phonetic: data.phonetic,
         audio: data?.phonetics[0]?.audio,
-        pos: data.meanings[0].partOfSpeech
+        pos: data.meanings[0].partOfSpeech,
+        pos_two: data?.meanings[1]?.partOfSpeech,
+        meaning: data.meanings,
+        synonyms: data.meanings[0].synonyms,
+        example: data?.meanings[1]?.definitions[0].example
       };
 
+      console.log(data.meanings);
       console.log(data, errors);
 
       const audio = new Howl({
@@ -55,13 +61,111 @@ const Layout: React.FC = () => {
               >
                 {definition.pos}
               </p>
-              <span className="bg-span h-[1px] w-full self-center"></span>
+              <span className="h-[1px] w-full self-center bg-span"></span>
             </div>
             <p
-              className={`font-${pick} mt-[38px] text-xl font-normal text-grayish`}
+              className={`font-${pick} mb-6 mt-[38px] text-xl font-normal text-grayish`}
             >
               Meaning
             </p>
+            <section className="mb-63 pl-[22px]">
+              {definition.meaning.length > 1
+                ? definition.meaning[0].definitions.map(
+                    ({ definition }: { definition: string[] }) => {
+                      return (
+                        <div>
+                          <ol key={uuidv4()} className="ml-[22px] list-outside">
+                            <li
+                              className={`mb-3 list-disc ${
+                                theme === 'dark'
+                                  ? 'text-white'
+                                  : 'text-dark-grayish'
+                              } leading-6  marker:text-purple font-${pick} text-xl font-normal`}
+                            >
+                              {definition}
+                            </li>
+                          </ol>
+                        </div>
+                      );
+                    }
+                  )
+                : definition.meaning[0].definitions.map(
+                    ({ definition }: { definition: string }) => {
+                      return (
+                        <ol key={uuidv4()} className="ml-[22px] list-outside">
+                          <li
+                            className={`mb-3 list-disc ${
+                              theme === 'dark'
+                                ? 'text-white'
+                                : 'text-dark-grayish'
+                            } leading-6  marker:text-purple font-${pick} text-xl font-normal`}
+                          >
+                            {definition}
+                          </li>
+                        </ol>
+                      );
+                    }
+                  )}
+            </section>
+            <section className="mb-[53px] flex gap-6">
+              <p className={`font-${font} text-xl font-normal text-grayish`}>
+                Synonyms
+              </p>
+              <p className={`font-bold text-purple font-${pick}  text-xl`}>
+                {definition.synonyms[0]}
+              </p>
+            </section>
+            {definition.meaning.length > 1 ? (
+              definition.meaning[1].definitions.map(
+                ({ definition: def }: { definition: string }) => {
+                  return (
+                    <>
+                      <div className="mb-10 flex gap-5">
+                        <p
+                          className={`font-${pick} text-2xl ${
+                            pick === 'sansserif' && 'font-bold italic'
+                          }  ${
+                            theme === 'dark'
+                              ? 'text-white'
+                              : 'text-dark-grayish'
+                          }`}
+                        >
+                          {definition.pos_two}
+                        </p>
+
+                        <span className="h-[1px] w-full self-center bg-span"></span>
+                      </div>
+
+                      <p
+                        className={`font-${pick} mb-6 text-xl font-normal text-grayish`}
+                      >
+                        Meaning
+                      </p>
+                      <ol key={uuidv4()} className="ml-[22px] list-disc ">
+                        <li
+                          className={`mb-3 ml-[22px]  list-outside ${
+                            theme === 'dark'
+                              ? 'text-white'
+                              : 'text-dark-grayish'
+                          } leading-6  marker:text-purple font-${pick} text-xl font-normal`}
+                        >
+                          {def}
+                        </li>
+                      </ol>
+                      {definition.example && (
+                        <p
+                          className={`ml-[22px] text-lg text-grayish font-${pick} font-normal`}
+                        >
+                          "{definition.example}"
+                        </p>
+                      )}
+                    </>
+                  );
+                }
+              )
+            ) : (
+              <></>
+            )}
           </main>
         </div>
       );
@@ -75,7 +179,7 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <main className="mt-59 flex w-1/2 flex-col self-center">
+    <main className="mt-59 flex min-h-screen w-1/2 flex-col self-center">
       <SearchBar />
       {showLayout()}
     </main>

@@ -5,7 +5,7 @@ const Root: React.FC<{
   setDrop: any;
   isDropOpen: boolean;
 }> = ({ children, setDrop, isDropOpen }) => {
-  const themeMode = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)!;
 
   const handleDrop = () => {
     if (isDropOpen) {
@@ -16,10 +16,8 @@ const Root: React.FC<{
   return (
     <div
       className={`${
-        themeMode!.theme === 'dark'
-          ? 'bg-liteblk duration-700'
-          : 'bg-white duration-700'
-      } flex h-screen flex-col`}
+        theme === 'dark' ? 'bg-liteblk duration-700' : 'bg-white duration-700'
+      } flex  flex-col`}
       onClick={handleDrop}
     >
       {children}

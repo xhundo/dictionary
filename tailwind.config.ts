@@ -12,7 +12,8 @@ export default {
         '58': '58px',
         '59': '59px',
         '351': '351px',
-        '51': '51px'
+        '51': '51px',
+        '63': '63px'
       },
       colors: {
         'dark-grayish': '#2D2D2D',
