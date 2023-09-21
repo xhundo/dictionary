@@ -17,7 +17,7 @@ const Root: React.FC<{
     <div
       className={`${
         theme === 'dark' ? 'bg-liteblk duration-700' : 'bg-white duration-700'
-      } flex  flex-col`}
+      } flex min-h-screen flex-col`}
       onClick={handleDrop}
     >
       {children}
