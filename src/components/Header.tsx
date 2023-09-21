@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence, DragControls } from 'framer-motion';
 import clsx from 'clsx';
-import { Book } from '../assets/Book';
+import { Book } from '../icons/Book';
 import { Switcher } from './Switcher';
 import { FontContext } from '../contexts/FontContext';
 import { ThemeContext } from '../contexts/ThemeContext';
-import { Path } from '../assets/Path';
+import { Path } from '../icons/Path';
 import { Dropdown } from './Dropdown';
 import type { Font } from '../interfaces';
 
@@ -44,7 +44,7 @@ const Select: React.FC<{
 }> = ({ font, openDropdown, isOpen, changeFont, setDropdown }) => {
   const { theme } = useContext(ThemeContext)!;
 
-  const buildclsx = () => {
+  const buildClsx = () => {
     let style = '';
     switch (font) {
       case 'Sans Serif':
@@ -69,7 +69,7 @@ const Select: React.FC<{
   return (
     <div className="relative flex w-[250px] items-center">
       <div className="flex items-center gap-4">
-        <h1 className={clsx(buildclsx())}>{font}</h1>
+        <h1 className={clsx(buildClsx())}>{font}</h1>
         <Path openModal={openDropdown} />
       </div>
       <AnimatePresence>
@@ -85,7 +85,7 @@ const Select: React.FC<{
             <Dropdown
               fonts={[
                 { font: 'Sans Serif', style: 'font-sans font-bold' },
-                { font: 'Serif', style: 'font-serif' },
+                { font: 'Serif', style: 'font-serif font-bold' },
                 { font: 'Mono', style: 'font-mono' }
               ]}
               changeFont={changeFont}
