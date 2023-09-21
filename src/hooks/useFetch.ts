@@ -9,7 +9,7 @@ export const useFetch = (query: string) => {
     if (query) {
       query = query.trim().replace('/', '');
 
-      const getDef = async () => {
+      (async () => {
         try {
           let data = await fetch(API_URL.concat(query)),
             res = await data.json(),
@@ -21,9 +21,9 @@ export const useFetch = (query: string) => {
           setError(error);
           setDefinition([]);
         }
-      };
-
-      getDef();
+      })();
+    } else {
+      setDefinition([]);
     }
   }, [query]);
 

@@ -14,6 +14,22 @@ export interface DataContextType {
   errors: any;
 }
 
+export interface Definition {
+  word: string;
+  phonetic: string;
+  audio: string;
+  pos_noun: string;
+  pos_verb: string;
+  meaning_one: {
+    definitions: any[];
+  };
+  meaning_two: {
+    definitions: any[];
+  };
+  synonyms: string[];
+  example: string;
+}
+
 export interface Error {
   isError: boolean;
   error: string;

@@ -9,10 +9,14 @@ export const useForm = () => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent, query: (query: string) => void) => {
+  const handleSubmit = (
+    e: React.FormEvent,
+    query: (query: string | null) => void
+  ) => {
     e.preventDefault();
     if (search.length === 0) {
       setError({ error: "Whoops, can't be empty...", isError: true });
+      query(null);
     } else {
       setError({ error: '', isError: false });
       query(search);
