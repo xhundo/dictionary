@@ -27,6 +27,7 @@ export interface Definition {
     definitions: any[];
   };
   synonyms: string[];
+  source: string;
   example: string;
 }
 

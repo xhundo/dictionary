@@ -7,6 +7,7 @@ import { FontContext } from '../contexts/FontContext';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { DataContext } from '../contexts/DataContext';
 import { SearchBar } from './SearchBar';
+import { Link } from '../icons/Link';
 import { PlayButton } from './PlayButton';
 
 const Layout: React.FC<{}> = ({}) => {
@@ -15,13 +16,12 @@ const Layout: React.FC<{}> = ({}) => {
   let { definition: data, setQuery, errors } = useContext(DataContext)!;
 
   const pick = setPick(font);
-  let definition: Definition;
 
   const showLayout = () => {
     if (data && !errors) {
       console.log(data);
 
-      definition = {
+      let definition: Definition = {
         word: data.word,
         phonetic: data.phonetic,
         audio: data.phonetics[0]?.audio,
@@ -30,6 +30,7 @@ const Layout: React.FC<{}> = ({}) => {
         meaning_one: data.meanings[0],
         meaning_two: data.meanings[1],
         synonyms: data.meanings[0].synonyms,
+        source: data.sourceUrls[0],
         example: data.meanings[1]?.definitions[0].example
       };
 
@@ -74,7 +75,7 @@ const Layout: React.FC<{}> = ({}) => {
             </div>
             <PlayButton action={() => audio.play()} />
           </section>
-          <main className="flex flex-col">
+          <main className="mb-[124px] flex flex-col">
             <div className="flex gap-5">
               <p
                 className={`font-${pick} text-2xl ${
@@ -144,6 +145,24 @@ const Layout: React.FC<{}> = ({}) => {
                         )}
                       </div>
                       <span className="h-[1px] w-full self-center bg-span"></span>
+                      <div className="mt-5 flex items-center">
+                        <p
+                          className={`text-sm font-normal text-grayish font-${pick} mr-5`}
+                        >
+                          Source
+                        </p>
+                        <a
+                          className={`${
+                            theme === 'dark'
+                              ? 'text-white'
+                              : 'text-dark-grayish'
+                          } flex justify-between pr-2 text-sm font-normal  $font-${pick}`}
+                          href={definition.source}
+                        >
+                          {definition.source}
+                        </a>
+                        <Link source={definition.source} />
+                      </div>
                     </>
                   );
                 })
@@ -154,12 +173,23 @@ const Layout: React.FC<{}> = ({}) => {
           </main>
         </div>
       );
-    } else {
-      if (errors) {
-        let { title, message, resolution } = errors;
-        console.log(title, message, resolution);
-      }
-      return <div></div>;
+    } else if (errors) {
+      const { message, title, resolution } = errors;
+      return (
+        <div className="mt-[132px] flex flex-col items-center">
+          <p className="text-[64px]">😕</p>
+          <p
+            className={`mt-[44px] font-sans text-xl font-bold leading-normal  ${
+              theme === 'dark' ? 'text-white' : 'text-dark-grayish'
+            }`}
+          >
+            {title}
+          </p>
+          <p className="mt-6 w-1/2 text-center font-sans text-lg leading-6 text-grayish">
+            {`${message} ` + `${resolution}`}
+          </p>
+        </div>
+      );
     }
   };
 
