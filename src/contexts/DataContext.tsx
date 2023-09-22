@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
-import { useFetch } from '../hooks/useFetch';
-import type { DataContextType } from '../interfaces';
+import { useFetch } from '@/hooks/useFetch';
+import type { DataContextType } from '@/interfaces';
 
 const DataContext = createContext<DataContextType | null>(null);
 

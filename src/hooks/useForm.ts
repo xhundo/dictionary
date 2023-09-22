@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Error } from '../interfaces';
+import type { Error } from '@/interfaces';
 
 export const useForm = () => {
   const [search, setSearch] = useState<string>('');

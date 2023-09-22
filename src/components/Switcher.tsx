@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../contexts/ThemeContext';
-import { Moon } from '../icons/Moon';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { Moon } from '@/icons/Moon';
 
 const Switcher: React.FC<{}> = ({}) => {
   const { theme, setTheme } = useContext(ThemeContext)!;

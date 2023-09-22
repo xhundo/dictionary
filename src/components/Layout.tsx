@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import { Definition } from '../interfaces';
+import { Definition } from '@/interfaces';
 import { Howl } from 'howler';
 import _ from 'lodash';
-import { setPick } from '../utils/helper';
-import { FontContext } from '../contexts/FontContext';
-import { ThemeContext } from '../contexts/ThemeContext';
-import { DataContext } from '../contexts/DataContext';
+import { setPick } from '@/utils/helper';
+import { FontContext } from '@/contexts/FontContext';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { DataContext } from '@/contexts/DataContext';
 import { SearchBar } from './SearchBar';
-import { Link } from '../icons/Link';
+import { Link } from '@/icons/Link';
 import { PlayButton } from './PlayButton';
 
 const Layout: React.FC<{}> = ({}) => {
