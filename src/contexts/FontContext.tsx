@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import type { FontContextType, Font } from '../interfaces';
+import type { FontContextType, Font } from '@/interfaces';
 
 const FontContext = createContext<FontContextType | null>(null);
 

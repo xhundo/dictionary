@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ThemeContext } from '../contexts/ThemeContext';
-import { FontContext } from '../contexts/FontContext';
-import { DataContext } from '../contexts/DataContext';
-import { useForm } from '../hooks/useForm';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { FontContext } from '@/contexts/FontContext';
+import { DataContext } from '@/contexts/DataContext';
+import { useForm } from '@/hooks/useForm';
 
 const SearchBar: React.FC<{}> = ({}) => {
   const { theme } = useContext(ThemeContext)!;

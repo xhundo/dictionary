@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence, DragControls } from 'framer-motion';
 import clsx from 'clsx';
-import { Book } from '../icons/Book';
+import { Book } from '@/icons/Book';
 import { Switcher } from './Switcher';
-import { FontContext } from '../contexts/FontContext';
-import { ThemeContext } from '../contexts/ThemeContext';
-import { Path } from '../icons/Path';
+import { FontContext } from '@/contexts/FontContext';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { Path } from '@/icons/Path';
 import { Dropdown } from './Dropdown';
-import type { Font } from '../interfaces';
+import type { Font } from '@/interfaces';
 
 const Header: React.FC<{ isDropopen: boolean; setDrop: any }> = ({
   isDropopen,
