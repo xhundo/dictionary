@@ -26,7 +26,8 @@ export default {
         liteblk2: '#1F1F1F',
         error: '#FF5252',
         purp: 'rgba(164, 69, 237, 1)',
-        span: '#3A3A3A'
+        span: '#3A3A3A',
+        'span-light': '#E9E9E9'
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
@@ -45,6 +46,9 @@ export default {
       },
       height: {
         '75': '75px'
+      },
+      screens: {
+        sm: '375px'
       }
     }
   },
