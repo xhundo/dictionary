@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { Definition } from '@/interfaces';
 import { Howl } from 'howler';
 import _ from 'lodash';
@@ -13,14 +13,12 @@ import { PlayButton } from './PlayButton';
 const Layout: React.FC<{}> = ({}) => {
   const { theme } = useContext(ThemeContext)!;
   const { font } = useContext(FontContext)!;
-  let { definition: data, setQuery, errors } = useContext(DataContext)!;
+  let { definition: data, errors } = useContext(DataContext)!;
 
   const pick = setPick(font);
 
   const showLayout = () => {
     if (data && !errors) {
-      console.log(data);
-
       let definition: Definition = {
         word: data.word,
         phonetic: data.phonetic,
@@ -37,8 +35,6 @@ const Layout: React.FC<{}> = ({}) => {
       const audio = new Howl({
         src: [definition.audio]
       });
-
-      console.log('meaning: ', definition.meaning_one, definition.meaning_two);
 
       const renderMarkup = (): JSX.Element[] => {
         return definition.meaning_one.definitions.map(
@@ -67,7 +63,7 @@ const Layout: React.FC<{}> = ({}) => {
               <p
                 className={`${
                   theme === 'dark' ? 'text-white' : 'text-dark-grayish'
-                } font-${pick} text-[64px] font-bold`}
+                } font-${pick} text-[32px] font-bold md:text-[64px]`}
               >
                 {definition.word}
               </p>
@@ -84,14 +80,20 @@ const Layout: React.FC<{}> = ({}) => {
               >
                 {definition.pos_noun}
               </p>
-              <span className="h-[1px] w-full self-center bg-span"></span>
+              <span
+                className={`h-[1px] w-full self-center ${
+                  theme === 'dark' ? 'bg-span' : 'bg-span-light'
+                }`}
+              ></span>
             </div>
             <p
               className={`font-${pick} mb-6 mt-[38px] text-xl font-normal text-grayish`}
             >
               Meaning
             </p>
-            <section className="mb-63 pl-[22px]">{renderMarkup()}</section>
+            <section className="md:mb-63 pl-[20px] md:pl-[22px]">
+              {renderMarkup()}
+            </section>
             <section className="mb-[53px] flex gap-6">
               <p className={`font-${font} text-xl font-normal text-grayish`}>
                 Synonyms
@@ -117,7 +119,11 @@ const Layout: React.FC<{}> = ({}) => {
                         >
                           {definition.pos_verb}
                         </p>
-                        <span className="h-[1px] w-full self-center bg-span"></span>
+                        <span
+                          className={`h-[1px] w-full self-center ${
+                            theme === 'dark' ? 'bg-span' : 'bg-span-light'
+                          }`}
+                        ></span>
                       </div>
                       <p
                         className={`font-${pick} mb-6 text-xl font-normal text-grayish`}
@@ -138,30 +144,36 @@ const Layout: React.FC<{}> = ({}) => {
                       <div className="mb-10">
                         {definition.example && (
                           <p
-                            className={`ml-[22px] text-lg text-grayish font-${pick} font-normal`}
+                            className={`ml-[47px] text-lg text-grayish font-${pick} font-normal`}
                           >
                             "{definition.example}"
                           </p>
                         )}
                       </div>
-                      <span className="h-[1px] w-full self-center bg-span"></span>
-                      <div className="mt-5 flex items-center">
+                      <span
+                        className={`h-[1px] w-full self-center ${
+                          theme === 'dark' ? 'bg-span' : 'bg-span-light'
+                        }`}
+                      ></span>
+                      <div className="mt-5 items-center md:flex md:items-start">
                         <p
                           className={`text-sm font-normal text-grayish font-${pick} mr-5`}
                         >
                           Source
                         </p>
-                        <a
-                          className={`${
-                            theme === 'dark'
-                              ? 'text-white'
-                              : 'text-dark-grayish'
-                          } flex justify-between pr-2 text-sm font-normal  $font-${pick}`}
-                          href={definition.source}
-                        >
-                          {definition.source}
-                        </a>
-                        <Link source={definition.source} />
+                        <div className="md:item-start flex items-center">
+                          <a
+                            className={`${
+                              theme === 'dark'
+                                ? 'text-white'
+                                : 'text-dark-grayish'
+                            } flex justify-between pr-2 text-sm font-normal  $font-${pick}`}
+                            href={definition.source}
+                          >
+                            {definition.source}
+                          </a>
+                          <Link source={definition.source} />
+                        </div>
                       </div>
                     </>
                   );
@@ -185,7 +197,7 @@ const Layout: React.FC<{}> = ({}) => {
           >
             {title}
           </p>
-          <p className="mt-6 w-1/2 text-center font-sans text-lg leading-6 text-grayish">
+          <p className="mt-6 w-full text-center font-sans text-lg leading-6 text-grayish">
             {`${message} ` + `${resolution}`}
           </p>
         </div>
@@ -194,7 +206,9 @@ const Layout: React.FC<{}> = ({}) => {
   };
 
   return (
-    <main className="mt-59 flex min-h-full w-1/2 flex-col self-center">
+    <main
+      className={`mt-7 flex min-h-full w-full flex-col self-center px-6 md:mt-59 md:px-10 lg:w-1/2 lg:p-0`}
+    >
       <SearchBar />
       {showLayout()}
     </main>
