@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { motion, AnimatePresence, DragControls } from 'framer-motion';
+import React, { useContext, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { Book } from '@/icons/Book';
 import { Switcher } from './Switcher';
@@ -9,26 +9,24 @@ import { Path } from '@/icons/Path';
 import { Dropdown } from './Dropdown';
 import type { Font } from '@/interfaces';
 
-const Header: React.FC<{ isDropopen: boolean; setDrop: any }> = ({
-  isDropopen,
-  setDrop
-}): JSX.Element => {
+const Header: React.FC<{}> = ({}): JSX.Element => {
   const { font, setFont } = useContext(FontContext)!;
+  const [dropdown, setDropdown] = useState<boolean>(false);
 
-  const openDropdown = () => {
-    setDrop(!isDropopen);
+  const toggleDropdown = () => {
+    if (dropdown) setDropdown(false);
+    else setDropdown(true);
   };
 
   return (
-    <header className="flex justify-center">
-      <nav className="mt-58 flex w-1/2 justify-between">
+    <header className="mx-6 flex justify-center">
+      <nav className="mt-6 flex w-full justify-between md:mx-8  md:mt-58  md:w-full  md:gap-x-24 lg:w-1/2">
         <Book />
         <Select
           font={font}
-          openDropdown={openDropdown}
-          isOpen={isDropopen}
+          isDropOpen={dropdown}
           changeFont={setFont}
-          setDropdown={setDrop}
+          setDropdown={toggleDropdown}
         />
       </nav>
     </header>
@@ -37,43 +35,37 @@ const Header: React.FC<{ isDropopen: boolean; setDrop: any }> = ({
 
 const Select: React.FC<{
   font: string;
-  openDropdown: () => void;
-  isOpen: boolean;
+  isDropOpen: boolean;
   changeFont: React.Dispatch<Font> | undefined;
-  setDropdown: (state: boolean) => void;
-}> = ({ font, openDropdown, isOpen, changeFont, setDropdown }) => {
+  setDropdown: () => void;
+}> = ({ font, isDropOpen, changeFont, setDropdown }) => {
   const { theme } = useContext(ThemeContext)!;
 
   const buildClsx = () => {
-    let style = '';
     switch (font) {
       case 'Sans Serif':
-        style = `text-dark-grayish w-[80px] ${
+        return `text-dark-grayish w-[80px] ${
           theme === 'dark' && 'text-white'
         } font-sans font-bold`;
-        break;
       case 'Serif':
-        style = `text-dark-grayish font-bold w-[80px] ${
+        return `text-dark-grayish font-bold w-[80px] ${
           theme === 'dark' && 'text-white'
         } font-serif`;
-        break;
       case 'Mono':
-        style = `text-dark-grayish w-[80px] ${
+        return `text-dark-grayish w-[80px] ${
           theme === 'dark' && 'text-white'
         } font-mono`;
-        break;
     }
-    return style;
   };
 
   return (
-    <div className="relative flex w-[250px] items-center">
+    <div className="md:w1/2  relative flex w-[250px] items-center">
       <div className="flex items-center gap-4">
         <h1 className={clsx(buildClsx())}>{font}</h1>
-        <Path openModal={openDropdown} />
+        <Path openDropdown={setDropdown} />
       </div>
       <AnimatePresence>
-        {isOpen && (
+        {isDropOpen && (
           <motion.div
             key="dropdown"
             initial={{ opacity: 0 }}
@@ -89,9 +81,9 @@ const Select: React.FC<{
                 { font: 'Mono', style: 'font-mono' }
               ]}
               changeFont={changeFont}
-              toggleDropdown={openDropdown}
+              toggleDropdown={setDropdown}
               setDropdown={setDropdown}
-              isDropdownOpen={isOpen}
+              isDropdownOpen={isDropOpen}
             />
           </motion.div>
         )}

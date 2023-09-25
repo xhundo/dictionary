@@ -7,7 +7,7 @@ import { useForm } from '@/hooks/useForm';
 const SearchBar: React.FC<{}> = ({}) => {
   const { theme } = useContext(ThemeContext)!;
   const { font } = useContext(FontContext)!;
-  const { definition, setQuery } = useContext(DataContext)!;
+  const { setQuery } = useContext(DataContext)!;
   const {
     error: { error, isError },
     handleSearch,
@@ -43,7 +43,7 @@ const SearchBar: React.FC<{}> = ({}) => {
             : 'bg-lite placeholder:text-dark-grayish '
         } active:outline-purple ${
           error && 'border border-error'
-        } h-[64px] w-full rounded-2xl px-6 py-5 font-bold outline-none active:outline-1 ${style}  placeholder:opacity-25`}
+        } h-[64px] w-full rounded-2xl px-6  py-5 font-bold outline-none active:outline-1 ${style}  placeholder:opacity-25`}
         placeholder="Search for any word..."
         type="text"
         value={search}

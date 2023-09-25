@@ -2,6 +2,7 @@ import React, { useState, createContext } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import type { DataContextType } from '@/interfaces';
 
+// Data Context & Providers
 const DataContext = createContext<DataContextType | null>(null);
 
 const DataProvider: React.FC<{ children: React.ReactNode }> = ({

@@ -1,23 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { Header } from './components/Header';
 import { FontProvider } from './contexts/FontContext';
-import { Root } from './Root';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { Root } from './Root';
 import { Layout } from './components/Layout';
 import { DataProvider } from './contexts/DataContext';
 
-const App: React.FC<{}> = () => {
-  const [isDropdownOpen, setDropdown] = useState<boolean>(false);
+const App: React.FC<{}> = ({}) => {
   return (
     <ThemeProvider>
-      <Root setDrop={setDropdown} isDropOpen={isDropdownOpen}>
-        <DataProvider>
-          <FontProvider>
-            <Header isDropopen={isDropdownOpen} setDrop={setDropdown} />
+      <DataProvider>
+        <FontProvider>
+          <Root>
+            <Header />
             <Layout />
-          </FontProvider>
-        </DataProvider>
-      </Root>
+          </Root>
+        </FontProvider>
+      </DataProvider>
     </ThemeProvider>
   );
 };
