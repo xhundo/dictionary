@@ -5,6 +5,7 @@ export const useFetch = (query: string) => {
   const [error, setError] = useState<any | null>(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
+  // Custom fetch hook
   useEffect(() => {
     if (query) {
       query = query.trim().replace('/', '');
