@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, memo, useRef } from 'react';
 import type { Font, Opts } from '@/interfaces';
 import { ThemeContext } from '@/contexts/ThemeContext';
 
@@ -7,15 +7,32 @@ const Dropdown: React.FC<{
   changeFont: React.Dispatch<Font> | undefined;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
-  setDropdown: (state: boolean) => void;
-}> = ({ fonts, changeFont, toggleDropdown, isDropdownOpen, setDropdown }) => {
+  setDropdown: () => void;
+}> = ({ fonts, changeFont, toggleDropdown }) => {
   const handleFont = (evt: React.MouseEvent<HTMLLIElement>): void => {
     changeFont?.(evt.currentTarget.textContent as Font);
     localStorage.setItem('font', evt.currentTarget.textContent as string);
     toggleDropdown();
   };
 
+  // Theme context
   const { theme } = useContext(ThemeContext)!;
+
+  useEffect(() => {
+    // Event listener for select dropdown
+    document.addEventListener('keydown', toggleDropdown);
+    document.addEventListener('click', close, true);
+
+    // Clean up listeners when unmounting
+    return () => {
+      document.removeEventListener('keydown', toggleDropdown);
+      document.removeEventListener('click', close);
+    };
+  }, []);
+
+  const close = (e: Event) => {
+    if (e.target) toggleDropdown();
+  };
 
   return (
     <div
