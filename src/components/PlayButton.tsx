@@ -1,7 +1,7 @@
 const PlayButton: React.FC<{ action: () => void }> = ({ action }) => {
   return (
     <div
-      className="bg-purp/10 hover:bg-purp/100 group relative  right-6 h-75 w-75 cursor-pointer self-center  rounded-full duration-200"
+      className="group relative right-6 h-75  w-75 cursor-pointer self-center rounded-full bg-purp/10  duration-200 hover:bg-purp/100"
       onClick={action}
     >
       <svg
