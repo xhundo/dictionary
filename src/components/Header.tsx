@@ -82,8 +82,6 @@ const Select: React.FC<{
               ]}
               changeFont={changeFont}
               toggleDropdown={setDropdown}
-              setDropdown={setDropdown}
-              isDropdownOpen={isDropOpen}
             />
           </motion.div>
         )}
