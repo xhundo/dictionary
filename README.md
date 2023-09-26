@@ -1,27 +1,24 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://user-images.githubusercontent.com/98115017/270511816-5a6ba13c-8914-486c-bc49-7b12215ee2fd.jpg)
+<h6>Don't know what a particular word means? Search for a definition! 📖 </h6>
+   
+| Tech Stack |
+:-----------:
+[![My Skills](https://skillicons.dev/icons?i=ts,react,tailwind)](https://skillicons.dev)
+[View App](https://dictionary-dun.vercel.app)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+<h6>Features</h6>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   <sub>View definitions in three supported fonts</sub>
+   
+   <sub>Enable light/dark theme mode</sub>
+   
+   <sub>Audio playback for definitions</sub>
 
-- Configure the top-level `parserOptions` property like this:
+</div>
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
