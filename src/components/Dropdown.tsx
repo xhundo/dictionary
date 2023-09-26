@@ -6,8 +6,6 @@ const Dropdown: React.FC<{
   fonts: Opts[];
   changeFont: React.Dispatch<Font> | undefined;
   toggleDropdown: () => void;
-  isDropdownOpen: boolean;
-  setDropdown: () => void;
 }> = ({ fonts, changeFont, toggleDropdown }) => {
   const handleFont = (evt: React.MouseEvent<HTMLLIElement>): void => {
     changeFont?.(evt.currentTarget.textContent as Font);
@@ -30,8 +28,8 @@ const Dropdown: React.FC<{
     };
   }, []);
 
-  const close = (e: Event) => {
-    if (e.target) toggleDropdown();
+  const close = (e: any) => {
+    if (e.target.localName !== 'svg') toggleDropdown();
   };
 
   return (
